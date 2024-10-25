@@ -1,0 +1,75 @@
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+.login {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  height: 100%;
+  background: url("/images/login/login-bg.png") no-repeat 100% 100%;
+  background-size: cover;
+  h1 {
+    position: absolute;
+    top: 55px;
+    left: 77px;
+    //padding: 55px 0 0 77px;
+    img {
+      vertical-align: top;
+    }
+  }
+  > section {
+    padding-left: 177px;
+    h2 {
+      color: #000;
+      font-size: 35px;
+      font-weight: 600;
+      margin-bottom: 70px;
+    }
+    > div {
+      label {
+        display: flex;
+        align-items: center;
+        &:first-child {
+          margin-bottom: 27px;
+        }
+        span {
+          display: inline-block;
+          width: 120px;
+          color: #114C54;
+          font-size: 20px;
+          font-weight: 600;
+        }
+        input {
+          background: #FBFBFB;
+          border: 1px solid #B8B4B4;
+          border-radius: 8px;
+          font-size: 16px;
+          width: 272px;
+          height: 43px;
+          line-height: 43px;
+          padding: 0 10px;
+          box-sizing: border-box;
+        }
+      }
+      > div {
+        text-align: center;
+        > a {
+          display: inline-block;
+          margin-top: 64px;
+          text-decoration: none;
+          width: 200px;
+          height: 43px;
+          line-height: 43px;
+          border-radius: 13px;
+          background-color: #155257;
+          border: 1px solid #707070;
+          color: #fff;
+          font-size: 20px;
+          font-weight: 600;
+        }
+      }
+
+    }
+  }
+}
