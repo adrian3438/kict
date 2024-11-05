@@ -52,9 +52,9 @@ html, body {
           box-sizing: border-box;
         }
       }
-      > div {
+      > .login-btn-area {
         text-align: center;
-        > a {
+        > .login-btn-area {
           display: inline-block;
           margin-top: 64px;
           text-decoration: none;
@@ -67,6 +67,9 @@ html, body {
           color: #fff;
           font-size: 20px;
           font-weight: 600;
+          padding:0;
+          box-sizing: border-box;
+          cursor: pointer;
         }
       }
 
