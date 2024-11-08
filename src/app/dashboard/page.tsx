@@ -3,6 +3,7 @@ import SideBar from "@/components/SideBar";
 import ImageSlider from "@/components/ImageSlider";
 import Image from "next/image";
 import Chart from "@/components/Chart";
+import Modeling from "@/components/Modeling";
 
 export default function Dashboard() {
   return (
@@ -208,7 +209,7 @@ export default function Dashboard() {
                 </section>
 
                 <section id="section04">
-                    그래프 영역
+                    <Modeling/>
                 </section>
             </div>
         </div>
