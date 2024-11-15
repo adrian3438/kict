@@ -3,7 +3,7 @@ import SideBar from "@/components/SideBar";
 import ImageSlider from "@/components/ImageSlider";
 import Image from "next/image";
 import Chart from "@/components/Chart";
-import Modeling from "@/components/Modeling";
+import Modeling from '@/components/Modeling';
 
 export default function Dashboard() {
   return (
