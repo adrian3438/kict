@@ -6,22 +6,28 @@ export function commonSetting () {
   // set dev & platform
   if (typeof window !== "undefined") {
     window._DEBUG = location.search.indexOf('debug') > -1;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     window._DEBUG && document.documentElement.classList.add('_DEBUG');
-  
+
     window._CONTROLS = location.search.indexOf('control') > -1;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     window._CONTROLS && document.documentElement.classList.add('_CONTROLS');
-  
+
     window._NOGUIDE = location.search.indexOf('noguide') > -1;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     window._NOGUIDE && document.documentElement.classList.add('_NOGUIDE');
-  
+
     const platform = (navigator.userAgentData?.platform || navigator.platform)?.toLowerCase();
     window._WINDOWOS = platform.startsWith("win");
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     window._WINDOWOS && document.documentElement.classList.add('_WINDOWOS');
-  
+
     window._MACOS = platform.startsWith("mac");
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     window._MACOS && document.documentElement.classList.add('_MACOS');
-  
+
     window._LINUXOS = platform.startsWith("linux");
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     window._LINUXOS && document.documentElement.classList.add('_LINUXOS');
   }
 }
@@ -38,7 +44,9 @@ export function setSceneEnv (renderer, scene, hdrPath, options) {
   pmremGenerator.compileEquirectangularShader();
   new RGBELoader().load(hdrPath, function(texture) {
     const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     options.setEnv && (scene.environment = envMap);
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     options.setBg && (scene.background = envMap);
     texture.dispose();
     pmremGenerator.dispose();
@@ -97,9 +105,9 @@ export function setPIP (scene, camera, gui, options) {
     pipCameraPosition: [30, 30, 30],
     pipCameraTargetSize: [1, 8, 4],
     pipIsLineYFollowCamera: true,
-    cameraRotateGroupX, 
-    cameraRotateGroupY, 
-    cameraTarget, 
+    cameraRotateGroupX,
+    cameraRotateGroupY,
+    cameraTarget,
     cameraOffset,
   }
   options = Object.assign(defaults, options);
@@ -107,15 +115,16 @@ export function setPIP (scene, camera, gui, options) {
   // PIP
   const fog = scene.fog;
   const pip = {
-    width: 400, 
-    height: 300, 
+    width: 400,
+    height: 300,
     camera: new THREE.PerspectiveCamera(70, 400/300, 0.1, 999),
     cameraHelper: null,
     cameraTargetHelper: null,
-    lineX: null, 
+    lineX: null,
     lineY: null,
     lineZ: null,
     beforeRender: () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       fog && (scene.fog = null);
       if ( pip.lineX ) {
         pip.lineX.scale.set(1, 1, 1);
@@ -128,13 +137,14 @@ export function setPIP (scene, camera, gui, options) {
       }
     },
     afterRender: () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       fog && (scene.fog = fog);
       scene.remove(pip.lineX);
       scene.remove(pip.cameraHelper);
       // scene.remove(pip.cameraTargetHelper);
     }
   }
-    
+
   // - pip - camera helper
   pip.cameraHelper = new THREE.CameraHelper(camera);
   pip.camera.position.set(...options.pipCameraPosition);
@@ -148,18 +158,19 @@ export function setPIP (scene, camera, gui, options) {
   pip.cameraTargetHelper.renderOrder = 1;
   // - pip - line x, y
   pip.lineX = (() => {
-    const shape = new THREE.Shape().absarc(0, 0, 1, 0, Math.PI * 2); // shape 
+    const shape = new THREE.Shape().absarc(0, 0, 1, 0, Math.PI * 2); // shape
     const line = new THREE.Line(
-      new THREE.BufferGeometry().setFromPoints(shape.getPoints(50)), 
+      new THREE.BufferGeometry().setFromPoints(shape.getPoints(50)),
       new THREE.LineBasicMaterial({ color: 0xff0000 })
     );
     line.rotation.x = -Math.PI / 2;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     options.pipIsLineYFollowCamera && (line.position.y = camera.position.y);
     return line;
   })();
   pip.lineY = (() => {
     const line = new THREE.Line(
-      pip.lineX.geometry, 
+      pip.lineX.geometry,
       new THREE.LineBasicMaterial({ color: 0x00ff00 })
     );
     line.rotation.x = -Math.PI / 2;
@@ -174,11 +185,11 @@ export function setPIP (scene, camera, gui, options) {
 
 
   // GUI
-  
+
   // gui - pip visible
   const folderControls = gui.addFolder('Controls');
   const pipSetting = { visible: location.search.indexOf('pip') > -1 ? true : false }
-  folderControls.add(pipSetting, 'visible').name('PIP visible').onChange(() => { !pipSetting.visible &&  renderer.setSize(areaWidth, areaHeight); });
+  folderControls.add(pipSetting, 'visible').name('PIP visible').onChange(() => { renderer.setSize(areaWidth, areaHeight); });
 
   // gui - target
   const folderTarget = gui.addFolder('Target');
@@ -198,7 +209,7 @@ export function setPIP (scene, camera, gui, options) {
   fovControl.onChange(function(value) {
     camera.fov = value;
     camera.updateProjectionMatrix();
-    requestToRender = true;
+    // requestToRender = true;
   });
 
   // gui - look at target
@@ -232,15 +243,15 @@ export function setPIP (scene, camera, gui, options) {
 
 export function setGuiModel (gui, model) {
   const materialValue = { opacity: 1 }
-  
+
   const modelSize = new THREE.Box3().setFromObject(model);
   const modelWidth = modelSize.max.x - modelSize.min.x;
   const modelHeight = modelSize.max.y - modelSize.min.y;
   const modelDepth = modelSize.max.z - modelSize.min.z;
 
-  // gui - model opacity 
+  // gui - model opacity
   const folderModel = gui.addFolder('Model');
-  folderModel.add(materialValue, 'opacity', 0, 1, 0.01).name('material opacity').onChange(function(value) {
+  folderModel.add(materialValue, 'opacity', 0, 1, 0.01).name('material opacity').onChange(function() {
     model.traverse((child) => {
       if (child.isMesh) {
           child.material.opacity = materialValue.opacity;

@@ -4,10 +4,10 @@ import { currentData, actionValue, world } from "./_common";
 // create
 export function createBubble (bubblewidth, fontsize, message, position, options) {
   const defaults = {
-    bubblewidth: bubblewidth, 
-    fontsize: fontsize, 
-    color: '#fff',
-    background: '#000', 
+    bubblewidth: bubblewidth,
+    fontsize: fontsize,
+    color: '#000',
+    background: '#ddd',
     padding: 50,
     radius: 30,
     visible: true,
@@ -32,7 +32,7 @@ export function createBubble (bubblewidth, fontsize, message, position, options)
   ctx.lineJoin = "round";
   ctx.lineWidth = radius;
 
-  ctx.strokeStyle = options.background; 
+  ctx.strokeStyle = options.background;
   ctx.fillStyle = options.background;
   ctx.strokeRect(0 + (radius/2), 0 + (radius/2), width - radius, height - radius);
   ctx.fillRect(0 + (radius/2), 0 + (radius/2), width - radius, height - radius);
@@ -68,14 +68,17 @@ export function changeBubble () {
   // bubble
   for (let i = 0; i < actionValue.weightBubbles.length; i++) {
     const bubble = actionValue.weightBubbles[i];
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     currentData.weights[i] && changeBubbleMassage(bubble, currentData.weights[i]);
   }
   for (let i = 0; i < actionValue.shearBubbles.length; i++) {
     const sprite = actionValue.shearBubbles[i];
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     currentData.shears[i] && changeBubbleMassage(sprite, currentData.shears[i]);
   }
   for (let i = 0; i < actionValue.momentBubbles.length; i++) {
     const sprite = actionValue.momentBubbles[i];
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     currentData.moments[i] && changeBubbleMassage(sprite, currentData.moments[i]);
   }
 }
@@ -102,7 +105,7 @@ function changeBubbleMassage (sprite, message) {
   ctx.lineJoin = "round";
   ctx.lineWidth = radius;
 
-  ctx.strokeStyle = options.background; 
+  ctx.strokeStyle = options.background;
   ctx.fillStyle = options.background;
   ctx.strokeRect(0 + (radius/2), 0 + (radius/2), width - radius, height - radius);
   ctx.fillRect(0 + (radius/2), 0 + (radius/2), width - radius, height - radius);

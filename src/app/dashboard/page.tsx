@@ -1,7 +1,6 @@
 import '@/app/assets/scss/dashboard.scss'
 import SideBar from "@/components/SideBar";
 import ImageSlider from "@/components/ImageSlider";
-import Image from "next/image";
 import Chart from "@/components/Chart";
 import Modeling from '@/components/Modeling';
 
@@ -10,7 +9,7 @@ export default function Dashboard() {
     <>
         <SideBar/>
         <div className="container-wrap">
-            <div className="container">
+            <div>
                 <section className="location">
                     <ul>
                         <li>대표교량 일반 정보</li>
@@ -195,12 +194,6 @@ export default function Dashboard() {
                         </tr>
                         </tbody>
                     </table>
-                    <ul className="capture-list">
-                        <li><Image src="/images/@temp/capture-sample.png" alt="캡쳐이미지" width={679} height={331}/></li>
-                        <li><Image src="/images/@temp/capture-sample.png" alt="캡쳐이미지" width={679} height={331}/></li>
-                        <li><Image src="/images/@temp/capture-sample.png" alt="캡쳐이미지" width={679} height={331}/></li>
-                        <li><Image src="/images/@temp/capture-sample.png" alt="캡쳐이미지" width={679} height={331}/></li>
-                    </ul>
                 </section>
 
                 <section id="section03">
