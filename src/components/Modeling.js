@@ -1,4 +1,5 @@
 'use client'
+import '@/app/assets/Modeling/scss/style.scss'
 import { useEffect } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';

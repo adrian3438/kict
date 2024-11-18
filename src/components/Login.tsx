@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 
 export default function Login() {
     return (
@@ -15,7 +14,8 @@ export default function Login() {
                     <input type="password"/>
                 </label>
                 <div className="login-btn-area">
-                    <Link href="/dashboard" className="login-btn-area">로그인</Link>
+                    {/*<Link href="/dashboard" className="login-btn-area">로그인</Link>*/}
+                    <a href="/dashboard" className="login-btn-area">로그인</a>
                     {/*<button className="login-btn-area">로그인</button>*/}
                 </div>
             </div>
