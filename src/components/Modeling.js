@@ -4,23 +4,13 @@ import { useEffect } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { OrbitControls } from 'three/addons/controls/OrbitControls';
-// import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
-// import { CSS2DObject, CSS2DRenderer } from 'three/addons/renderers/CSS2DRenderer.js';
 import { Water } from 'three/addons/objects/Water.js';
 import { Sky } from 'three/addons/objects/Sky.js';
-
-// import { commonSetting, setGui, setHelper } from '../components/Modeling/js/_utils';
 import { commonSetting } from '../components/Modeling/js/_utils';
 import { settings, actionValue, currentData, world  } from '../components/Modeling/js/_common';
 import { createBubble, changeBubble } from '../components/Modeling/js/_bubble';
 
-// data
-import datas from '../../public/resources/datas/data.json';
-
-// common setting
-
-export default function Modeling(){
-
+export default function Modeling({datas}){
     useEffect(() => {
 
       commonSetting();
@@ -345,17 +335,29 @@ export default function Modeling(){
         // animation
         const $inputAnimation = $menu.querySelector('.input-animation');
         $inputAnimation.addEventListener('change', () => {
-          if ( $inputAnimation.checked === true ) {
+          if ($inputAnimation.checked === true) {
             isAnimation = true;
             changeDataValue(currentIndex);
-            animationInterval = createAnimation();
+
+            // 이미 실행 중인 Interval이 있으면 중복 실행 방지
+            if (!animationInterval) {
+              animationInterval = createAnimation();
+            }
+
             document.querySelector('.indicator').classList.add('active');
           } else {
             isAnimation = false;
             changeDataValue(currentIndex);
-            window.clearInterval(animationInterval);
+
+            // Interval 중지
+            if (animationInterval) {
+              clearInterval(animationInterval);
+              animationInterval = null; // 상태 초기화
+            }
+
             document.querySelector('.indicator').classList.remove('active');
           }
+
           renderRequest();
         });
 
@@ -777,14 +779,20 @@ export default function Modeling(){
 
       // ### ANIMATION
       let animationInterval;
-      // let animationInterval = createAnimation();
-      function createAnimation () {
+      function createAnimation() {
         return setInterval(() => {
           currentIndex++;
-          if ( currentIndex == datas.List.length ) currentIndex = 0;
+          if (currentIndex === datas.List.length) {
+            // 조건이 만족되면 Interval 중지
+            clearInterval(animationInterval);
+            animationInterval = null; // Interval 상태 초기화
+            console.log('Animation stopped because the condition was met.');
+            return; // 함수를 종료하여 이후 로직 실행 방지
+          }
+
           changeDataValue(currentIndex);
-          $menu.querySelector('#select-data').value = currentIndex+1;
-        }, 1000)
+          $menu.querySelector('#select-data').value = currentIndex + 1;
+        }, 1000);
       }
 
 
